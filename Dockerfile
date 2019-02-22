@@ -18,11 +18,10 @@ RUN export DEBIAN_FRONTEND=noninteractive \
  && pip install pipenv \
  && rm -rf /var/lib/apt/lists/* /tmp/* 
 
-COPY package.json .
-RUN npm install 
 
 COPY . .
-RUN npm run check  \
+RUN npm install \
+ && npm run check  \
  && npm run build 
 
 EXPOSE 1337 
