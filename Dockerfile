@@ -1,28 +1,27 @@
-FROM python:stretch
-MAINTAINER Nikolai R Kristiansen <nikolaik@gmail.com>
 
-# Install node prereqs, nodejs and yarn
-# Ref: https://deb.nodesource.com/setup_10.x
-# Ref: https://yarnpkg.com/en/docs/install
-RUN \
-  apt-get update && \
-  apt-get install -yqq apt-transport-https
-RUN \
-  echo "deb https://deb.nodesource.com/node_10.x stretch main" > /etc/apt/sources.list.d/nodesource.list && \
-  wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
-  echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \
-  wget -qO- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-  apt-get update && \
-  apt-get install -yqq nodejs yarn && \
-  pip install -U pip && pip install pipenv && \
-  npm i -g npm@^6 && \
-  rm -rf /var/lib/apt/lists/*
-WORKDIR /app/
+FROM ubuntu
 
-COPY package.json .
-RUN npm install
+ENV TZ=Asia/Shanghai \
+    LC_ALL=C.UTF-8 \
+    NODE_VERSION=10.14.1
+
+WORKDIR /app
+
+
+
+RUN export DEBIAN_FRONTEND=noninteractive \
+ && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
+ && apt-get update \
+ && apt-get install -y vim curl wget git \
+ && apt-get install -y python3 python3-pip && pip3 install -U pip \
+ && cd /tmp && curl -fsSLO --compressed "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz" && tar -xJf "node-v$NODE_VERSION-linux-x64.tar.xz" -C /usr/local --strip-components=1 --no-same-owner \
+ && rm -rf /var/lib/apt/lists/* /tmp/*
 
 COPY . .
 
+RUN npm install \
+
+
 EXPOSE 1337
-CMD node build/build.js && node deploy/deploy.js && npm start
+CMD npm start
+ 
