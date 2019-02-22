@@ -10,8 +10,8 @@ import { onkeydowndocument, onkeydowninput } from './onkeydown.es6'
 
 const config = {
   app: 'webapp',
-  server_host: 'localhost',
-  server_port: 1337,
+  server_host: window.location.host,
+  server_port: 80,
   min_decibels: -40, // Noise detection sensitivity
   max_blank_time: 1000 // Maximum time to consider a blank (ms)
 }
