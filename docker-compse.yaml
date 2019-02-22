@@ -1,0 +1,10 @@
+app:
+  image: 'registry-vpc.cn-hangzhou.aliyuncs.com/yitong-dev/m-yitong-com-school:alpha'
+  restart: always
+  environment:
+    - 'constraint:yitong.node==app'
+    - 'NODE_YT_ENV=dev'
+    - 'DEPLOY_URI=oss://*:*@yt-dev.oss-cn-hangzhou.aliyuncs.com/m.dev.yitong.com/school/'
+  volumes:
+    - '${conf}/m-yitong-com-school/props.json:/app/props.json:ro'
+  hostname: 'm-yitong-com-school'
