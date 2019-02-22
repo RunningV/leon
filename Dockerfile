@@ -15,6 +15,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
  && apt-get install -y vim curl wget git \
  && apt-get install -y python3 python3-pip && pip3 install -U pip \
  && cd /tmp && curl -fsSLO --compressed "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz" && tar -xJf "node-v$NODE_VERSION-linux-x64.tar.xz" -C /usr/local --strip-components=1 --no-same-owner \
+ && pip install pipenv \
  && rm -rf /var/lib/apt/lists/* /tmp/* 
 
 COPY package.json .
