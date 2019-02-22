@@ -24,5 +24,5 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 3000
+EXPOSE 1337
 CMD node build/build.js && node deploy/deploy.js && npm start
