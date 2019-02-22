@@ -19,9 +19,9 @@ RUN export DEBIAN_FRONTEND=noninteractive \
 
 COPY . .
 
-RUN npm install \
+RUN npm install 
 
 
-EXPOSE 1337
+EXPOSE 1337 
 CMD npm start
  
