@@ -20,9 +20,9 @@ RUN export DEBIAN_FRONTEND=noninteractive \
 
 
 COPY . .
-RUN npm preinstall \
+RUN npm run preinstall \
  && npm install \
- && npm postinstall \
+ && npm run postinstall \
  && npm run check  \
  && npm run build \
  && npm run setup:offline 
