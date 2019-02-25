@@ -24,7 +24,7 @@ RUN npm run preinstall \
  && npm run postinstall \
  && npm run check  \
  && npm run build \
- && npm run setup:offline 
+ && npm run setup:offline-stt 
 
 EXPOSE 1337 
 CMD npm start
