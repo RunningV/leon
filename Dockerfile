@@ -22,6 +22,7 @@ RUN npm run preinstall
 RUN npm install
 RUN npm run postinstall
 RUN npm run build
+RUN npm run check
 
 # Let's run it
 CMD ["npm", "start"]
