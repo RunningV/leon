@@ -1,31 +1,27 @@
-
-FROM ubuntu
-
-ENV TZ=Asia/Shanghai \
-    LC_ALL=C.UTF-8 \
-    NODE_VERSION=10.14.1
-
+FROM node:10-alpine
 WORKDIR /app
-
-
-
-RUN export DEBIAN_FRONTEND=noninteractive \
- && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
- && apt-get update \
- && apt-get install -y vim curl wget git \
- && apt-get install -y python3 python3-pip && pip3 install -U pip \
- && cd /tmp && curl -fsSLO --compressed "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz" && tar -xJf "node-v$NODE_VERSION-linux-x64.tar.xz" -C /usr/local --strip-components=1 --no-same-owner \
- && pip install pipenv 
-
-
 COPY . .
-RUN npm run preinstall \
- && npm install \
- && npm run postinstall \
- && npm run check  \
- && npm run build \
- && npm run setup:offline-stt 
 
-EXPOSE 1337 
-CMD npm start
- 
+# Install system packages
+RUN apk update --no-cache \
+  && apk add --no-cache \
+    ca-certificates \
+    build-base \
+    python3 \
+    git \
+    tzdata
+
+# Upgrade pip and install Pipenv
+RUN pip3 install --upgrade pip \
+	&& pip install pipenv
+
+# Install Leon
+# Need to explicitly run the npm preinstall and npm posinstall scripts
+# because npm tries to downgrade its privileges, and these scripts are not executed
+RUN npm run preinstall
+RUN npm install
+RUN npm run postinstall
+RUN npm run build
+
+# Let's run it
+CMD ["npm", "start"]

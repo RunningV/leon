@@ -1,6 +1,6 @@
 {
   "name": "leon",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0-beta.1",
   "description": "Server, packages and web app of the Leon personal assistant",
   "author": {
     "name": "Louis Grenard",
@@ -42,7 +42,9 @@
     "train": "babel-node scripts/run-train.js",
     "prepare-release": "babel-node scripts/release/prepare-release.js",
     "commitmsg": "babel-node scripts/commit-message.js && npm run lint",
-    "check": "babel-node scripts/run-check.js"
+    "check": "babel-node scripts/run-check.js",
+    "docker:build": "docker build -t leonai/leon . --force-rm",
+    "docker:run": "docker run -e TZ=`cat /etc/timezone` -d -p 1337:1337 -it leonai/leon"
   },
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.0.17",
@@ -54,7 +56,7 @@
     "aws-sdk": "^2.382.0",
     "body-parser": "^1.17.2",
     "cross-env": "^5.2.0",
-    "deepspeech": "^0.4.0",
+    "deepspeech": "^0.4.1",
     "dotenv": "^4.0.0",
     "execa": "^0.10.0",
     "express": "^4.15.3",
@@ -77,6 +79,7 @@
     "browserify": "^14.4.0",
     "cli-spinner": "^0.2.8",
     "dev-ip": "^1.0.1",
+    "envify": "^4.1.0",
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-import-resolver-babel-module": "^4.0.0",
@@ -85,8 +88,8 @@
     "git-changelog": "git+https://git@github.com/louistiti/git-changelog.git",
     "husky": "^0.14.3",
     "inquirer": "^5.1.0",
-    "jest": "^23.4.1",
-    "jest-extended": "^0.7.2",
+    "jest": "^24.1.0",
+    "jest-extended": "^0.11.1",
     "json": "^9.0.6",
     "nodemon": "^1.18.9",
     "semver": "^5.6.0",
