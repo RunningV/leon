@@ -23,7 +23,6 @@ RUN npm install
 RUN npm run postinstall
 RUN npm run check
 RUN npm run setup:offline-stt
-RUN npm run wake
 RUN npm run build
 
 # Let's run it
