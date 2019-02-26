@@ -21,8 +21,9 @@ RUN pip3 install --upgrade pip \
 RUN npm run preinstall
 RUN npm install
 RUN npm run postinstall
-RUN npm run build
 RUN npm run check
+RUN npm run setup:offline-stt
+RUN npm run build
 
 # Let's run it
 CMD ["npm", "start"]
