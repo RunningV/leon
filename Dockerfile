@@ -22,7 +22,7 @@ RUN npm run preinstall
 RUN npm install
 RUN npm run postinstall
 RUN npm run check
-RUN npm run setup:offline-stt
+RUN npm run train
 RUN npm run build
 
 # Let's run it
